@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
-// Generate JWT token
 const generateToken = (user) => {
     return jwt.sign(
         {
@@ -40,18 +39,15 @@ router.get(
     }),
     (req, res) => {
         try {
-            // Generate JWT token for the authenticated user
             const token = generateToken(req.user);
 
-            // Set the token as an HTTP-only cookie
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-                maxAge: 3600000 // 1 hour
+                maxAge: 3600000
             });
 
-            // Redirect to frontend with success indicator
             const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
             res.redirect(`${frontendUrl}/dashboard?auth=success`);
         } catch (err) {

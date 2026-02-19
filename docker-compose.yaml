@@ -9,16 +9,15 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DB}
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+      - pgdata:/var/lib/postgresql
+
 
   backend:
     build: .
     ports:
-      - "4100:4100"
+      - "5555:5555"
     env_file:
-      - .env       
+      - .env
     depends_on:
       - db
     volumes:

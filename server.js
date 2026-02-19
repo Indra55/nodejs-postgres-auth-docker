@@ -13,7 +13,6 @@ app.use(cors({
     credentials: true
 }));
 
-// Initialize Passport
 app.use(passport.initialize());
 
 // Routes
